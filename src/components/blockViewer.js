@@ -1,5 +1,5 @@
-import Block from "./functions/block";
-import Transactions from "./transactionComponent";
+import Block from "../classes/block";
+import Transactions from "./transactionAll";
 import { useEffect, useState } from "react";
 import { Alchemy, Network } from "alchemy-sdk";
 
@@ -32,9 +32,8 @@ function BlockViewer({ blockNumber }) {
             setTransactions(newBlock.getTransactions());
             setisBlock(true);
         }
-
         init();
-    }, []);
+    }, [blockNumber]);
 
     if (!isBlock) {
         return <h1>Loading...</h1>;
@@ -48,7 +47,7 @@ function BlockViewer({ blockNumber }) {
         <div>
             <h3>Timestamp: {timestamp}</h3>
             <h3>Gas Used: {gasUsed} ({gasUsedPercent}%)</h3>
-            <h3>Transactions: {transactionCount}</h3>
+            <h3>Transaction Count: {transactionCount}</h3>
             <button onClick={handleClick}>Show All</button>
             {showTransactions ? transactions.map((txn, index) => {
                 return <Transactions index={index} transaction={txn}/>
