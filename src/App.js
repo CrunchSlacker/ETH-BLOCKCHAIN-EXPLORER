@@ -1,6 +1,6 @@
 import { Alchemy, Network } from "alchemy-sdk";
 import { useEffect, useState } from "react";
-import BlockViewer from "./blockViewer";
+import BlockViewer from "./components/blockViewer";
 
 import "./App.css";
 const settings = {
@@ -13,17 +13,18 @@ const alchemy = new Alchemy(settings);
 function App() {
     const [blockNumber, setBlockNumber] = useState();
 
-    useEffect(() => {
-        async function getBlockNumber() {
-            setBlockNumber(await alchemy.core.getBlockNumber());
-        }
+    async function getBlockNumber() {
+        setBlockNumber(await alchemy.core.getBlockNumber());
+    }
 
+    useEffect(() => {
         getBlockNumber();
     }, []);
 
     return (
         <div className="App">
             <h3>Block Number: {blockNumber}</h3>
+            <button onClick={getBlockNumber}>Get New Block</button>
             <BlockViewer blockNumber={blockNumber} />
         </div>
     );
