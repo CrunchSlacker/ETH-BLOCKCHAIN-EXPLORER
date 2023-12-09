@@ -5,13 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TransactionDetailed from "./components/transactionIndividual";
+import SearchBlock from "./components/searchBlock";
 
 ReactDOM.render(
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App/ >}/>
-        <Route path="txn/:txnHash" element={<TransactionDetailed txnHash={"1"}/>}/>
-      </Routes>
+        <Routes>
+            <Route path="/" element={<SearchBlock />} />
+            <Route path="/block/:blockNum" element={<App />} />
+            <Route
+                path="txn/:txnHash"
+                element={<TransactionDetailed txnHash={"1"} />}
+            />
+        </Routes>
     </BrowserRouter>,
     document.getElementById("root")
 );

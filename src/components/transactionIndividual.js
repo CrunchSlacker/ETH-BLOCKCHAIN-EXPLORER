@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+// TransactionDetailed.js
+import { Link, useParams } from "react-router-dom";
 import { Alchemy, Network } from "alchemy-sdk";
 import { useEffect, useState } from "react";
 import Transaction from "../classes/transaction.js";
@@ -21,7 +22,6 @@ function TransactionDetailed() {
     const [to, setTo] = useState();
     const [value, setValue] = useState();
 
-
     useEffect(() => {
         async function getTransactionDetails() {
             const txnDetails = await alchemy.core.getTransaction(txnHash);
@@ -37,23 +37,60 @@ function TransactionDetailed() {
             setValue(txn.getValue());
         }
         getTransactionDetails();
-    }, []);
+    }, [txnHash]);
 
     return (
-        <div>
-            <h3>TXN Hash: {txnHash}</h3>
-            <h3>Status: {status}</h3>
-            <h3>Block: {blockNumber}</h3>
-            <h3>Confirmations: {confirmations}</h3>
-            <h3>From: {from}</h3>
-            <h3>To: {to}</h3>
-            <h3>Value: {value} ETH</h3>
-            <h3>---Gas Information---</h3>
-            <div>
-                <h5>Gas Used: {gasUsed}</h5>
-                <h5>Gas Limit: {gasLimit}</h5>
-                <h5>Percent Used: {((gasUsed / gasLimit) * 100).toFixed(2)}%</h5>
+        <div className="font-sans bg-black text-white flex flex-col items-center justify-center w-full min-h-screen p-4">
+            <div className="text-2xl mb-2">
+                <span className="text-papaya font-semibold">
+                    Transaction Hash:{" "}
+                </span>
+                {txnHash}
             </div>
+            <div className="text-lg mb-2">
+                <span className="text-papaya font-semibold">Status:</span>{" "}
+                {status}
+            </div>
+            <div className="text-lg mb-2">
+                <span className="text-papaya font-semibold">Block:</span>{" "}
+                {blockNumber}
+            </div>
+            <div className="text-lg mb-2">
+                <span className="text-papaya font-semibold">
+                    Confirmations:
+                </span>{" "}
+                {confirmations}
+            </div>
+            <div className="text-lg mb-2">
+                <span className="text-papaya font-semibold">From:</span> {from}
+            </div>
+            <div className="text-lg mb-2">
+                <span className="text-papaya font-semibold">To:</span> {to}
+            </div>
+            <div className="text-lg mb-2">
+                <span className="text-papaya font-semibold">Value:</span>{" "}
+                {value} ETH
+            </div>
+            <div className="text-lg font-semibold mb-2">
+                ---Gas Information---
+            </div>
+            <div className="text-lg">
+                <span className="text-papaya font-semibold">Gas Used:</span>{" "}
+                {gasUsed}
+            </div>
+            <div className="text-lg">
+                <span className="text-papaya font-semibold">Gas Limit:</span>{" "}
+                {gasLimit}
+            </div>
+            <div className="text-lg">
+                <span className="text-papaya font-semibold">Percent Used:</span>{" "}
+                {((gasUsed / gasLimit) * 100).toFixed(2)}%
+            </div>
+            <Link to={`/block/${blockNumber}`}>
+                <button className="mt-4 px-4 py-2 bg-papaya rounded-md text-black">
+                    Back
+                </button>
+            </Link>
         </div>
     );
 }
