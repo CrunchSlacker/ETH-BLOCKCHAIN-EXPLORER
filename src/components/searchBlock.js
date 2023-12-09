@@ -41,7 +41,7 @@ function SearchBlock() {
             id="blockInput"
             max={latestBlockNum}
             className="p-4 bg-transparent outline-none text-white w-full"
-            placeholder="Enter Block #"
+            placeholder={`Latest Block: ${latestBlockNum}`}
           />
         </form>
       </div>
